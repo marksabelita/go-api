@@ -34,6 +34,11 @@ paths:
       consumes:
       - application/json
       description: Lists all users details.
+      parameters:
+      - description: name
+        in: query
+        name: name
+        type: string
       produces:
       - application/json
       responses:
@@ -48,6 +53,9 @@ paths:
       summary: Lists all users details.
       tags:
       - Users
+  /users/{id}:
+    get:
+      responses: {}
 schemes:
 - http
 swagger: "2.0"

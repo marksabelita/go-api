@@ -37,6 +37,14 @@ const docTemplate = `{
                     "Users"
                 ],
                 "summary": "Lists all users details.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -51,6 +59,11 @@ const docTemplate = `{
                         }
                     }
                 }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "responses": {}
             }
         }
     },

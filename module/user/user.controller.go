@@ -24,6 +24,7 @@ var userCollection *mongo.Collection = config.GetCollection(config.DB, "users")
 // @Accept json
 // @Produce json
 // @Success 200 {array} []user_model.User
+// @Param        name    query     string  false  "name"  
 // @Router /users [get]
 func GetUser(c *fiber.Ctx) error {
     users, err := FindService()
@@ -37,6 +38,16 @@ func GetUser(c *fiber.Ctx) error {
     )
 }
 
+// HealthCheck godoc
+// @Summary Lists all users details.
+// @Description Lists all users details.
+// @Tags Users
+// @Accept json
+// @Produce json
+// @Success 200 {object} user_model.User
+// @Param        id   path      int  false  "Account ID"
+
+// @Router /users/{id} [get]
 func GetUserById(c *fiber.Ctx) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	userId := c.Params("userId")
