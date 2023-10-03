@@ -26,17 +26,17 @@ const docTemplate = `{
     "paths": {
         "/users": {
             "get": {
-                "description": "get the status of server.",
+                "description": "Lists all users details.",
                 "consumes": [
-                    "*/*"
+                    "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "root"
+                    "Users"
                 ],
-                "summary": "Show the status of server.",
+                "summary": "Lists all users details.",
                 "responses": {
                     "200": {
                         "description": "OK",

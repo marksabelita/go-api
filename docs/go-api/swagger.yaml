@@ -16,8 +16,8 @@ paths:
   /users:
     get:
       consumes:
-      - '*/*'
-      description: get the status of server.
+      - application/json
+      description: Lists all users details.
       produces:
       - application/json
       responses:
@@ -26,9 +26,9 @@ paths:
           schema:
             additionalProperties: true
             type: object
-      summary: Show the status of server.
+      summary: Lists all users details.
       tags:
-      - root
+      - Users
 schemes:
 - http
 swagger: "2.0"

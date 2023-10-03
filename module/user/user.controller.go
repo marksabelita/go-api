@@ -17,12 +17,11 @@ import (
 
 var userCollection *mongo.Collection = config.GetCollection(config.DB, "users")
 
-
 // HealthCheck godoc
-// @Summary Show the status of server.
-// @Description get the status of server.
-// @Tags Users
-// @Accept */*
+// @Summary Lists all users details.
+// @Description Lists all users details.
+// @Tags Usersasdasdas
+// @Accept json
 // @Produce json
 // @Success 200 {object} map[string]interface{}
 // @Router /users [get]
