@@ -11,14 +11,14 @@ import (
 )
 
 
-func FindService() ([]user_model.User, error) {
+func FindService(query bson.M) ([]user_model.User, error) {
 	var users []user_model.User
 	var userCollection *mongo.Collection = config.GetCollection(config.DB, "users")
 	
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	result, err := userCollection.Find(ctx, bson.M{})
+	result, err := userCollection.Find(ctx, query)
 
 	if err != nil { return nil, err }
 
@@ -32,7 +32,6 @@ func FindService() ([]user_model.User, error) {
 
 			users = append(users, singleUser)
 	}
-
 
 	return users, nil
 }

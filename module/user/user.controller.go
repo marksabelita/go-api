@@ -17,7 +17,6 @@ import (
 
 var userCollection *mongo.Collection = config.GetCollection(config.DB, "users")
 
-// HealthCheck godoc
 // @Summary Lists all users details.
 // @Description Lists all users details.
 // @Tags Users
@@ -27,7 +26,12 @@ var userCollection *mongo.Collection = config.GetCollection(config.DB, "users")
 // @Param        name    query     string  false  "name"  
 // @Router /users [get]
 func GetUser(c *fiber.Ctx) error {
-    users, err := FindService()
+    query := bson.M{}
+    name := c.Query("name")
+
+    if name != "" { query["name"] = name  }
+    
+    users, err := FindService(query)
 
     if err != nil {
         return c.Status(http.StatusInternalServerError).JSON(user_response.ErrorResponse{Message: "error"})
@@ -38,9 +42,8 @@ func GetUser(c *fiber.Ctx) error {
     )
 }
 
-// HealthCheck godoc
-// @Summary Lists all users details.
-// @Description Lists all users details.
+// @Summary Display user details
+// @Description Display user details
 // @Tags Users
 // @Accept json
 // @Produce json
