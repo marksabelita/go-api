@@ -7,14 +7,7 @@ import (
 func UserRoutes(app *fiber.App) {
 	BASE_URI := "users"
 
-	// HealthCheck godoc
-// @Summary Show the status of server.
-// @Description get the status of server.
-// @Tags root
-// @Accept */*
-// @Produce json
-// @Success 200 {object} map[string]interface{}
-// @Router / [get]
+	
 	app.Get(BASE_URI, GetUser)
 	
 	app.Get(BASE_URI + "/:id", GetUserById)

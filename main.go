@@ -10,7 +10,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/swagger"
 
-	_ "github.com/marksabelita/go-api/docs/go-api"
+	_ "go-api/docs/go-api"
 )
 
 // @title Fiber Swagger Example API

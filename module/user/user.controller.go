@@ -18,7 +18,14 @@ import (
 var userCollection *mongo.Collection = config.GetCollection(config.DB, "users")
 
 
-
+// HealthCheck godoc
+// @Summary Show the status of server.
+// @Description get the status of server.
+// @Tags Users
+// @Accept */*
+// @Produce json
+// @Success 200 {object} map[string]interface{}
+// @Router /users [get]
 func GetUser(c *fiber.Ctx) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
     var users []user_model.User
