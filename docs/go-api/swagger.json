@@ -31,17 +31,46 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Usersasdasdas"
+                    "Users"
                 ],
                 "summary": "Lists all users details.",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": true
+                            "type": "array",
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/user_model.User"
+                                }
+                            }
                         }
                     }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "user_model.User": {
+            "type": "object",
+            "required": [
+                "location",
+                "name",
+                "title"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
                 }
             }
         }

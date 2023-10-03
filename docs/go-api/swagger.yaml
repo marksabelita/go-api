@@ -1,4 +1,20 @@
 basePath: /
+definitions:
+  user_model.User:
+    properties:
+      id:
+        type: string
+      location:
+        type: string
+      name:
+        type: string
+      title:
+        type: string
+    required:
+    - location
+    - name
+    - title
+    type: object
 host: localhost:3001
 info:
   contact:
@@ -24,11 +40,14 @@ paths:
         "200":
           description: OK
           schema:
-            additionalProperties: true
-            type: object
+            items:
+              items:
+                $ref: '#/definitions/user_model.User'
+              type: array
+            type: array
       summary: Lists all users details.
       tags:
-      - Usersasdasdas
+      - Users
 schemes:
 - http
 swagger: "2.0"

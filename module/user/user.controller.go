@@ -20,35 +20,20 @@ var userCollection *mongo.Collection = config.GetCollection(config.DB, "users")
 // HealthCheck godoc
 // @Summary Lists all users details.
 // @Description Lists all users details.
-// @Tags Usersasdasdas
+// @Tags Users
 // @Accept json
 // @Produce json
-// @Success 200 {object} map[string]interface{}
+// @Success 200 {array} []user_model.User
 // @Router /users [get]
 func GetUser(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-    var users []user_model.User
-    defer cancel()
-
-    results, err := userCollection.Find(ctx, bson.M{})
+    users, err := FindService()
 
     if err != nil {
-        return c.Status(http.StatusInternalServerError).JSON(user_response.UserResponse{Status: http.StatusInternalServerError, Message: "error", Data: &fiber.Map{"data": err.Error()}})
+        return c.Status(http.StatusInternalServerError).JSON(user_response.ErrorResponse{Message: "error"})
     }
-
-    //reading from the db in an optimal way
-    defer results.Close(ctx)
-    for results.Next(ctx) {
-        var singleUser user_model.User
-        if err = results.Decode(&singleUser); err != nil {
-            return c.Status(http.StatusInternalServerError).JSON(user_response.UserResponse{Status: http.StatusInternalServerError, Message: "error", Data: &fiber.Map{"data": err.Error()}})
-        }
-
-        users = append(users, singleUser)
-    }
-
+   
     return c.Status(http.StatusOK).JSON(
-        user_response.UserResponse{Status: http.StatusOK, Message: "success", Data: &fiber.Map{"data": users}},
+        users,
     )
 }
 
