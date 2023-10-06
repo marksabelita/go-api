@@ -4,16 +4,10 @@ definitions:
     properties:
       id:
         type: string
-      location:
-        type: string
       name:
         type: string
-      title:
-        type: string
     required:
-    - location
     - name
-    - title
     type: object
 host: localhost:3001
 info:
@@ -55,7 +49,25 @@ paths:
       - Users
   /users/{id}:
     get:
-      responses: {}
+      consumes:
+      - application/json
+      description: Display user details
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user_model.User'
+      summary: Display user details
+      tags:
+      - Users
 schemes:
 - http
 swagger: "2.0"

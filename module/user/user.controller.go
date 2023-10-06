@@ -41,30 +41,25 @@ func GetUser(c *fiber.Ctx) error {
         users,
     )
 }
-
 // @Summary Display user details
 // @Description Display user details
 // @Tags Users
 // @Accept json
 // @Produce json
 // @Success 200 {object} user_model.User
-// @Param        id   path      int  false  "Account ID"
-
+// @Param        id   path      string  true  "Account ID"
 // @Router /users/{id} [get]
 func GetUserById(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	userId := c.Params("userId")
-	var user user_model.User
-	defer cancel()
-
+	userId := c.Params("id")
 	objId, _ := primitive.ObjectIDFromHex(userId)
+    query := bson.M{"id": objId}
+    user, err := FindOneService(query);
 
-	err := userCollection.FindOne(ctx, bson.M{"id": objId}).Decode(&user)
 	if err != nil {
 			return c.Status(http.StatusInternalServerError).JSON(user_response.UserResponse{Status: http.StatusInternalServerError, Message: "error", Data: &fiber.Map{"data": err.Error()}})
 	}
 
-	return c.Status(http.StatusOK).JSON(user_response.UserResponse{Status: http.StatusOK, Message: "success", Data: &fiber.Map{"data": user}})
+	return c.Status(http.StatusOK).JSON(user)
 }
 
 func EditUser(c *fiber.Ctx) error {
@@ -86,7 +81,7 @@ func EditUser(c *fiber.Ctx) error {
         return c.Status(http.StatusBadRequest).JSON(user_response.UserResponse{Status: http.StatusBadRequest, Message: "error", Data: &fiber.Map{"data": validationErr.Error()}})
     }
 
-    update := bson.M{"name": user.Name, "location": user.Location, "title": user.Title}
+    update := bson.M{"name": user.Name}
 
     result, err := userCollection.UpdateOne(ctx, bson.M{"id": objId}, bson.M{"$set": update})
 
@@ -126,8 +121,6 @@ func CreateUser(c *fiber.Ctx) error {
 	newUser := user_model.User{
 		Id: primitive.NewObjectID(),
 		Name: user.Name,
-		Location: "test",
-		Title: "test",
 	}
 
 	result, err := userCollection.InsertOne(ctx, newUser)

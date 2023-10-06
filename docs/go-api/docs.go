@@ -63,7 +63,34 @@ const docTemplate = `{
         },
         "/users/{id}": {
             "get": {
-                "responses": {}
+                "description": "Display user details",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Display user details",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Account ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/user_model.User"
+                        }
+                    }
+                }
             }
         }
     },
@@ -71,21 +98,13 @@ const docTemplate = `{
         "user_model.User": {
             "type": "object",
             "required": [
-                "location",
-                "name",
-                "title"
+                "name"
             ],
             "properties": {
                 "id": {
                     "type": "string"
                 },
-                "location": {
-                    "type": "string"
-                },
                 "name": {
-                    "type": "string"
-                },
-                "title": {
                     "type": "string"
                 }
             }

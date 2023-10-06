@@ -35,3 +35,18 @@ func FindService(query bson.M) ([]user_model.User, error) {
 
 	return users, nil
 }
+
+func FindOneService(query bson.M) (user_model.User , error) {
+	var user user_model.User
+	var userCollection *mongo.Collection = config.GetCollection(config.DB, "users")
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	err := userCollection.FindOne(ctx, query).Decode(&user)
+
+	if err != nil {
+		return user, err
+	}
+
+	return user, nil
+} 
