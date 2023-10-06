@@ -63,7 +63,7 @@ func GetUserById(c *fiber.Ctx) error {
 }
 
 func EditUser(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
     userId := c.Params("userId")
     var user user_model.User
     defer cancel()
@@ -133,7 +133,7 @@ func CreateUser(c *fiber.Ctx) error {
 }
 
 func DeleteUser(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
     userId := c.Params("userId")
     defer cancel()
 

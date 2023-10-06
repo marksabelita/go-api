@@ -10,12 +10,11 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-
 func FindService(query bson.M) ([]user_model.User, error) {
 	var users []user_model.User
 	var userCollection *mongo.Collection = config.GetCollection(config.DB, "users")
 	
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
 	result, err := userCollection.Find(ctx, query)
@@ -39,7 +38,7 @@ func FindService(query bson.M) ([]user_model.User, error) {
 func FindOneService(query bson.M) (user_model.User , error) {
 	var user user_model.User
 	var userCollection *mongo.Collection = config.GetCollection(config.DB, "users")
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
 	err := userCollection.FindOne(ctx, query).Decode(&user)
