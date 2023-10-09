@@ -1,8 +1,8 @@
 package main
 
 import (
-	"go-api/config"
-	"go-api/module/user"
+	"go-api/src/common/config"
+	"go-api/src/module/user"
 	"log"
 
 	"github.com/gofiber/fiber/v2"

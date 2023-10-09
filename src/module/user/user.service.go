@@ -2,8 +2,8 @@ package user
 
 import (
 	"context"
-	"go-api/config"
-	user_model "go-api/module/user/model"
+	"go-api/src/common/config"
+	user_model "go-api/src/module/user/model"
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"

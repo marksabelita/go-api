@@ -2,9 +2,9 @@ package user
 
 import (
 	"context"
-	"go-api/config"
-	user_model "go-api/module/user/model"
-	user_response "go-api/module/user/response"
+	"go-api/src/common/config"
+	user_model "go-api/src/module/user/model"
+	user_response "go-api/src/module/user/response"
 	"net/http"
 	"time"
 
