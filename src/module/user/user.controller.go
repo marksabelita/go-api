@@ -3,6 +3,7 @@ package user
 import (
 	"context"
 	"go-api/src/common/config"
+	"go-api/src/common/defaults"
 	user_model "go-api/src/module/user/model"
 	user_response "go-api/src/module/user/response"
 	"net/http"
@@ -15,7 +16,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-var userCollection *mongo.Collection = config.GetCollection(config.DB, "users")
+var userCollection *mongo.Collection = config.GetCollection(config.DB, defaults.DEFAULT_USER_COLLECTION)
 
 // @Summary Lists all users details.
 // @Description Lists all users details.
@@ -29,7 +30,9 @@ func GetUser(c *fiber.Ctx) error {
     query := bson.M{}
     name := c.Query("name")
 
-    if name != "" { query["name"] = name  }
+    if name != "" { 
+        query["name"] = name  
+    }
     
     users, err := FindService(query)
 
@@ -41,6 +44,7 @@ func GetUser(c *fiber.Ctx) error {
         users,
     )
 }
+
 // @Summary Display user details
 // @Description Display user details
 // @Tags Users
@@ -56,7 +60,7 @@ func GetUserById(c *fiber.Ctx) error {
     user, err := FindOneService(query);
 
 	if err != nil {
-			return c.Status(http.StatusInternalServerError).JSON(user_response.UserResponse{Status: http.StatusInternalServerError, Message: "error", Data: &fiber.Map{"data": err.Error()}})
+		return c.Status(http.StatusInternalServerError).JSON(user_response.UserResponse{Status: http.StatusInternalServerError, Message: "error", Data: &fiber.Map{"data": err.Error()}})
 	}
 
 	return c.Status(http.StatusOK).JSON(user)

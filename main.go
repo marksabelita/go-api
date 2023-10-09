@@ -31,13 +31,13 @@ import (
 
 func main() {
 	DEFAULT_PORT := config.GetEnv("PORT")
-	app := fiber.New();
+	app := fiber.New()
 
 	// Middleware
 	app.Use(recover.New())
 	app.Use(cors.New())
-	
-	if(DEFAULT_PORT == "") {
+
+	if DEFAULT_PORT == "" {
 		DEFAULT_PORT = config.DEFAULT_PORT
 	}
 
@@ -47,6 +47,6 @@ func main() {
 
 	if err := app.Listen(":" + DEFAULT_PORT); err != nil {
 		log.Fatal(err)
- 	}
+	}
 
 }
