@@ -47,7 +47,69 @@ paths:
       summary: Lists all users details.
       tags:
       - Users
+    patch:
+      consumes:
+      - application/json
+      description: Update user details
+      parameters:
+      - description: User data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user_model.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user_model.User'
+      summary: Update user
+      tags:
+      - Users
+    post:
+      consumes:
+      - application/json
+      description: Create user details
+      parameters:
+      - description: User data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/user_model.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user_model.User'
+      summary: Create user
+      tags:
+      - Users
   /users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Display user details
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user_model.User'
+      summary: Display user details
+      tags:
+      - Users
     get:
       consumes:
       - application/json

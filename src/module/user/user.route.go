@@ -9,7 +9,7 @@ import (
 func UserRoutes(app *fiber.App) {
 	app.Get(default_routes.DEFAULT_USERS_URI, GetUser)
 	app.Get(default_routes.DEFAULT_USERS_URI + "/:id", GetUserById)
-	app.Put(default_routes.DEFAULT_USERS_URI + "/:id", EditUser)
+	app.Patch(default_routes.DEFAULT_USERS_URI + "/:id", EditUser)
 	app.Delete(default_routes.DEFAULT_USERS_URI + "/:id", DeleteUser)
 	app.Post(default_routes.DEFAULT_USERS_URI, CreateUser)
 }

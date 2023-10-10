@@ -66,6 +66,14 @@ func GetUserById(c *fiber.Ctx) error {
 	return c.Status(http.StatusOK).JSON(user)
 }
 
+// @Summary Update user
+// @Description Update user details
+// @Tags Users
+// @Accept json
+// @Produce json
+// @Success 200 {object} user_model.User
+// @Param data body user_model.User true "User data"
+// @Router /users [patch]
 func EditUser(c *fiber.Ctx) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
     userId := c.Params("userId")
@@ -105,6 +113,15 @@ func EditUser(c *fiber.Ctx) error {
     return c.Status(http.StatusOK).JSON(user_response.UserResponse{Status: http.StatusOK, Message: "success", Data: &fiber.Map{"data": updatedUser}})
 }
 
+
+// @Summary Create user
+// @Description Create user details
+// @Tags Users
+// @Accept json
+// @Produce json
+// @Success 200 {object} user_model.User
+// @Param data body user_model.User true "User data"
+// @Router /users [post]
 func CreateUser(c *fiber.Ctx) error {
 	var user user_model.User
 	ctx, cancel := context.WithTimeout(context.Background(), config.DEFAULT_TIMEOUT * time.Second)
@@ -136,6 +153,14 @@ func CreateUser(c *fiber.Ctx) error {
 	return c.Status(http.StatusCreated).JSON(user_response.UserResponse{Status: http.StatusCreated, Message: "success", Data: &fiber.Map{"data": result}})
 }
 
+// @Summary Display user details
+// @Description Display user details
+// @Tags Users
+// @Accept json
+// @Produce json
+// @Success 200 {object} user_model.User
+// @Param        id   path      string  true  "Account ID"
+// @Router /users/{id} [delete]
 func DeleteUser(c *fiber.Ctx) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
     userId := c.Params("userId")
